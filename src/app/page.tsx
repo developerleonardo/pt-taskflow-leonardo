@@ -9,14 +9,14 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main className="flex flex-col justify-center items-center">
+      <main className="grid grid-rows-[1fr_auto] justify-center items-center">
         <MainLayout>
           <CheckboxInTable />
           <Button>Click me!</Button>
           <AddToDoDialog />
         </MainLayout>
+        <PaginationBar />
       </main>
-      <PaginationBar />
     </>
   );
 }

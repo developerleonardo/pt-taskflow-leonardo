@@ -8,7 +8,7 @@ import { tableData } from "@/mocks/tasks.mocks";
 export const CheckboxInTable = () => {
   const [todos, setTodos] = useState(tableData);
 
-  const toogleToDo = (id: number | string) => {
+  const toggleToDo = (id: number | string) => {
     const updatedTodos = todos.map((item) => {
       if (item.id === id) {
         return { ...item, completed: !item.completed };
@@ -23,7 +23,7 @@ export const CheckboxInTable = () => {
   return (
     <div className="flex flex-col gap-12">
       <section className="flex flex-col">
-        <h2 className="self-start bg-red-100 rounded-lg px-2 py-1 mb-4 text-lg font-semibold">
+        <h2 className="self-start bg-red-100 rounded-lg px-2 py-1 mb-4 text-lg font-medium">
           To Do
         </h2>
         <div className="flex flex-col gap-2">
@@ -38,7 +38,7 @@ export const CheckboxInTable = () => {
               todo={item.todo}
               completed={item.completed}
               userid={item.userid}
-              onToggle={toogleToDo}
+              onToggle={toggleToDo}
             />
           ))}
         </div>
@@ -48,7 +48,7 @@ export const CheckboxInTable = () => {
         </Button>
       </section>
       <section>
-        <h2 className="inline-block bg-green-100 rounded-lg px-2 py-1 mb-4 text-lg font-semibold">
+        <h2 className="inline-block bg-green-100 rounded-lg px-2 py-1 mb-4 text-lg font-medium">
           Completed
         </h2>
         <div className="flex flex-col gap-2">
@@ -63,7 +63,7 @@ export const CheckboxInTable = () => {
               todo={item.todo}
               completed={item.completed}
               userid={item.userid}
-              onToggle={toogleToDo}
+              onToggle={toggleToDo}
             />
           ))}
         </div>

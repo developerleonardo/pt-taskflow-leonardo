@@ -8,6 +8,16 @@ import { tableData } from "@/mocks/tasks.mocks";
 export const CheckboxInTable = () => {
   const [todos, setTodos] = useState(tableData);
 
+  const toogleToDo = (id: number | string) => {
+    const updatedTodos = todos.map((item) => {
+      if (item.id === id) {
+        return { ...item, completed: !item.completed };
+      }
+      return item;
+    });
+    setTodos(updatedTodos);
+  };
+
   const completedTasks = todos.filter((item) => item.completed === true);
   const pendingTasks = todos.filter((item) => item.completed === false);
   return (
@@ -28,6 +38,7 @@ export const CheckboxInTable = () => {
               todo={item.todo}
               completed={item.completed}
               userid={item.userid}
+              onToggle={toogleToDo}
             />
           ))}
         </div>
@@ -52,6 +63,7 @@ export const CheckboxInTable = () => {
               todo={item.todo}
               completed={item.completed}
               userid={item.userid}
+              onToggle={toogleToDo}
             />
           ))}
         </div>

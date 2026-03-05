@@ -7,13 +7,20 @@ interface ToDoItemProps {
   todo: string;
   completed: boolean;
   userid: number | string;
+  onToggle: (id: number | string) => void;
 }
 
-export const ToDoItem = ({ id, todo, completed, userid }: ToDoItemProps) => {
+export const ToDoItem = ({
+  id,
+  todo,
+  completed,
+  userid,
+  onToggle,
+}: ToDoItemProps) => {
   return (
     <div className="flex items-center justify-between px-2 py-1 bg-white rounded-md">
       <div className="flex gap-4 justify-center items-center">
-        <Checkbox />
+        <Checkbox checked={completed} onCheckedChange={() => onToggle(id)} />
         <span className="text-sm">{todo}</span>
       </div>
       <div className="flex gap-5 justify-center items-center">

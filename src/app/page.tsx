@@ -3,7 +3,6 @@ import { CheckboxInTable } from "@/components/CheckboxInTable";
 import { Header } from "@/components/Header";
 import { MainLayout } from "@/components/MainLayout";
 import { PaginationBar } from "@/components/PaginationBar";
-import { Searchbar } from "@/components/Searchbar";
 import { Button } from "@/components/ui/button";
 
 export default function Home() {
@@ -12,7 +11,6 @@ export default function Home() {
       <Header />
       <main className="flex flex-col justify-center items-center">
         <MainLayout>
-          <Searchbar />
           <CheckboxInTable />
           <Button>Click me!</Button>
           <AddToDoDialog />

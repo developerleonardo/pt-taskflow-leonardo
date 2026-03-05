@@ -1,3 +1,4 @@
+import { AddToDoDialog } from "@/components/AddToDoDialog";
 import { CheckboxInTable } from "@/components/CheckboxInTable";
 import { Header } from "@/components/Header";
 import { PaginationBar } from "@/components/PaginationBar";
@@ -11,6 +12,7 @@ export default function Home() {
       <Searchbar />
       <CheckboxInTable />
       <Button>Click me!</Button>
+      <AddToDoDialog />
       <PaginationBar />
     </div>
   );

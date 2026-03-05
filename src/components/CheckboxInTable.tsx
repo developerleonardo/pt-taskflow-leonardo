@@ -1,107 +1,123 @@
 "use client";
-
-import * as React from "react";
-import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { ToDoItem } from "@/components/ToDoItem";
+import { useState } from "react";
+import { Button } from "./ui/button";
+import { Plus } from "lucide-react";
 
 const tableData = [
   {
     id: "1",
-    name: "Sarah Chen",
-    email: "sarah.chen@example.com",
-    role: "Admin",
+    todo: "Prototype app",
+    completed: true,
+    userid: "26",
   },
   {
     id: "2",
-    name: "Marcus Rodriguez",
-    email: "marcus.rodriguez@example.com",
-    role: "User",
+    todo: "Implement user authentication",
+    completed: false,
+    userid: "42",
   },
   {
     id: "3",
-    name: "Priya Patel",
-    email: "priya.patel@example.com",
-    role: "User",
+    todo: "Design database schema",
+    completed: true,
+    userid: "17",
   },
   {
     id: "4",
-    name: "David Kim",
-    email: "david.kim@example.com",
-    role: "Editor",
+    todo: "Set up project repository",
+    completed: true,
+    userid: "8",
+  },
+  {
+    id: "5",
+    todo: "Create API endpoints",
+    completed: false,
+    userid: "13",
+  },
+  {
+    id: "6",
+    todo: "Build UI components",
+    completed: false,
+    userid: "34",
+  },
+  {
+    id: "7",
+    todo: "Write unit tests",
+    completed: true,
+    userid: "21",
+  },
+  {
+    id: "8",
+    todo: "Integrate payment gateway",
+    completed: false,
+    userid: "19",
+  },
+  {
+    id: "9",
+    todo: "Optimize performance",
+    completed: true,
+    userid: "5",
+  },
+  {
+    id: "10",
+    todo: "Deploy to production",
+    completed: false,
+    userid: "11",
   },
 ];
 
-export function CheckboxInTable() {
-  const [selectedRows, setSelectedRows] = React.useState<Set<string>>(
-    new Set(["1"]),
-  );
+export const CheckboxInTable = () => {
+  const [todos, setTodos] = useState(tableData);
 
-  const selectAll = selectedRows.size === tableData.length;
-
-  const handleSelectAll = (checked: boolean) => {
-    if (checked) {
-      setSelectedRows(new Set(tableData.map((row) => row.id)));
-    } else {
-      setSelectedRows(new Set());
-    }
-  };
-
-  const handleSelectRow = (id: string, checked: boolean) => {
-    const newSelected = new Set(selectedRows);
-    if (checked) {
-      newSelected.add(id);
-    } else {
-      newSelected.delete(id);
-    }
-    setSelectedRows(newSelected);
-  };
-
+  const completedTasks = todos.filter((item) => item.completed === true);
+  const pendingTasks = todos.filter((item) => item.completed === false);
   return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead className="w-8">
-            <Checkbox
-              id="select-all-checkbox"
-              name="select-all-checkbox"
-              checked={selectAll}
-              onCheckedChange={handleSelectAll}
+    <div className="flex flex-col gap-12">
+      <section className="flex flex-col">
+        <h2 className="self-start bg-red-100 rounded-lg px-2 py-1 mb-4 text-lg font-semibold">
+          To Do
+        </h2>
+        <div className="flex flex-col gap-2">
+          <div className="flex justify-between pl-10 pr-12 py-1 border-b border-b-neutral-300">
+            <span className="text-sm text-muted-foreground">Description</span>
+            <span className="text-sm text-muted-foreground">User ID</span>
+          </div>
+          {pendingTasks.map((item) => (
+            <ToDoItem
+              key={item.id}
+              id={item.id}
+              todo={item.todo}
+              completed={item.completed}
+              userid={item.userid}
             />
-          </TableHead>
-          <TableHead>Name</TableHead>
-          <TableHead>Email</TableHead>
-          <TableHead>Role</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {tableData.map((row) => (
-          <TableRow
-            key={row.id}
-            data-state={selectedRows.has(row.id) ? "selected" : undefined}
-          >
-            <TableCell>
-              <Checkbox
-                id={`row-${row.id}-checkbox`}
-                name={`row-${row.id}-checkbox`}
-                checked={selectedRows.has(row.id)}
-                onCheckedChange={(checked) =>
-                  handleSelectRow(row.id, checked === true)
-                }
-              />
-            </TableCell>
-            <TableCell className="font-medium">{row.name}</TableCell>
-            <TableCell>{row.email}</TableCell>
-            <TableCell>{row.role}</TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+          ))}
+        </div>
+        <Button className="mt-4 place-self-end" size="sm">
+          <Plus className="h-4 w-4" />
+          Add Task
+        </Button>
+      </section>
+      <section>
+        <h2 className="inline-block bg-green-100 rounded-lg px-2 py-1 mb-4 text-lg font-semibold">
+          Completed
+        </h2>
+        <div className="flex flex-col gap-2">
+          <div className="flex justify-between pl-10 pr-12 py-1 border-b border-b-neutral-300">
+            <span className="text-sm text-muted-foreground">Description</span>
+            <span className="text-sm text-muted-foreground">User ID</span>
+          </div>
+          {completedTasks.map((item) => (
+            <ToDoItem
+              key={item.id}
+              id={item.id}
+              todo={item.todo}
+              completed={item.completed}
+              userid={item.userid}
+            />
+          ))}
+        </div>
+      </section>
+    </div>
   );
-}
+};

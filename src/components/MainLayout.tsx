@@ -3,5 +3,9 @@ interface MainLayoutProps {
 }
 
 export const MainLayout = ({ children }: MainLayoutProps) => {
-  return <section className="max-w-3xl flex flex-col">{children}</section>;
+  return (
+    <section className="max-w-3xl w-full flex flex-col mx-auto">
+      {children}
+    </section>
+  );
 };

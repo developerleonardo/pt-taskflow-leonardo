@@ -1,39 +1,54 @@
 import { create } from "zustand";
-import { ToDoTypes } from "../types";
+import { ToDoTypes } from "@/types";
 
-interface todoStore {
+interface TodoStore {
   todos: ToDoTypes[];
-  setTodos: (todos: ToDoTypes[]) => void;
-  addToDo: (todo: ToDoTypes) => void;
-  deleteToDo: (id: number) => void;
-  isEditDialogOpen: boolean;
-  setIsEditDialogOpen: (isOpen: boolean) => void;
+  loading: boolean;
+  error: string | null;
   searchToDo: string;
+  isEditDialogOpen: boolean;
+
+  setTodos: (todos: ToDoTypes[]) => void;
+  addTodoLocal: (todo: ToDoTypes) => void;
+  updateTodoLocal: (id: number, completed: boolean) => void;
+  deleteTodoLocal: (id: number) => void;
+
+  setLoading: (loading: boolean) => void;
+  setError: (error: string | null) => void;
+
   setSearchToDo: (search: string) => void;
+  setIsEditDialogOpen: (isOpen: boolean) => void;
 }
 
-export const useToDoStore = create<todoStore>()((set) => ({
+export const useToDoStore = create<TodoStore>((set) => ({
   todos: [],
-  setTodos: (todos: ToDoTypes[]) =>
-    set(() => ({
-      todos,
-    })),
+  loading: false,
+  error: null,
   searchToDo: "",
-  setSearchToDo: (search: string) =>
-    set(() => ({
-      searchToDo: search,
-    })),
-  addToDo: (todo: ToDoTypes) =>
+  isEditDialogOpen: false,
+
+  setTodos: (todos) => set({ todos }),
+
+  addTodoLocal: (todo) =>
     set((state) => ({
-      todos: [...state.todos, todo],
+      todos: [todo, ...state.todos],
     })),
-  deleteToDo: (id: number) =>
+
+  updateTodoLocal: (id, completed) =>
+    set((state) => ({
+      todos: state.todos.map((todo) =>
+        todo.id === id ? { ...todo, completed } : todo,
+      ),
+    })),
+
+  deleteTodoLocal: (id) =>
     set((state) => ({
       todos: state.todos.filter((todo) => todo.id !== id),
     })),
-  isEditDialogOpen: false,
-  setIsEditDialogOpen: (isOpen: boolean) =>
-    set(() => ({
-      isEditDialogOpen: isOpen,
-    })),
+
+  setLoading: (loading) => set({ loading }),
+  setError: (error) => set({ error }),
+
+  setSearchToDo: (search) => set({ searchToDo: search }),
+  setIsEditDialogOpen: (isOpen) => set({ isEditDialogOpen: isOpen }),
 }));

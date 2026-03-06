@@ -20,7 +20,7 @@ export const AddToDoDialog = () => {
   const setIsEditDialogOpen = useToDoStore(
     (state) => state.setIsEditDialogOpen,
   );
-  const addToDo = useToDoStore((state) => state.addToDo);
+  const addTodoLocal = useToDoStore((state) => state.addTodoLocal);
 
   const [inputValue, setInputValue] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
@@ -43,7 +43,7 @@ export const AddToDoDialog = () => {
       completed: false,
       userid: Date.now(),
     };
-    addToDo(newToDo);
+    addTodoLocal(newToDo);
     setInputValue("");
     setIsEditDialogOpen(false);
   };

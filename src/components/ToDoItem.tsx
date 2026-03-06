@@ -20,11 +20,11 @@ export const ToDoItem = ({
   userid,
   onToggle,
 }: ToDoItemProps) => {
-  const deleteToDo = useToDoStore((state) => state.deleteToDo);
+  const deleteTodoLocal = useToDoStore((state) => state.deleteTodoLocal);
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
 
   const onConfirm = () => {
-    deleteToDo(id);
+    deleteTodoLocal(id);
     setIsDialogOpen(false);
   };
 

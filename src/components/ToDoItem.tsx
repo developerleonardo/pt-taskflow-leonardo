@@ -6,11 +6,11 @@ import { AlertDeleteTaskDialog } from "./AlertDeleteTaskDialog";
 import { useState } from "react";
 
 interface ToDoItemProps {
-  id: number | string;
+  id: number;
   todo: string;
   completed: boolean;
-  userid: number | string;
-  onToggle: (id: number | string) => void;
+  userid: number;
+  onToggle: (id: number) => void;
 }
 
 export const ToDoItem = ({

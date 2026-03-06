@@ -10,7 +10,7 @@ export const CheckboxInTable = () => {
   const setIsOpen = useToDoStore((state) => state.setIsEditDialogOpen);
   const searchToDo = useToDoStore((state) => state.searchToDo);
 
-  const toggleToDo = (id: number | string) => {
+  const toggleToDo = (id: number) => {
     const updatedTodos = todos.map((item) => {
       if (item.id === id) {
         return { ...item, completed: !item.completed };

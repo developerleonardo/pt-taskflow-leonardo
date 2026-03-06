@@ -1,6 +1,13 @@
 export interface ToDoTypes {
-  id: number | string;
+  id: number;
   todo: string;
   completed: boolean;
-  userid: number | string;
+  userid: number;
+}
+
+export interface TodosResponse {
+  todos: ToDoTypes[];
+  total: number;
+  skip: number;
+  limit: number;
 }

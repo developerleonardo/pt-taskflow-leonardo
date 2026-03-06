@@ -38,7 +38,7 @@ export const AddToDoDialog = () => {
   const createToDo = (description: string) => {
     if (!description.trim()) return;
     const newToDo = {
-      id: crypto.randomUUID(),
+      id: Date.now() + Math.floor(Math.random() * 1000),
       todo: description,
       completed: false,
       userid: Date.now(),

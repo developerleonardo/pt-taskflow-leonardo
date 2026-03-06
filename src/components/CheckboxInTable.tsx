@@ -1,12 +1,14 @@
 "use client";
 import { ToDoItem } from "@/components/ToDoItem";
-import { useState } from "react";
 import { Button } from "./ui/button";
 import { Plus } from "lucide-react";
-import { tableData } from "@/mocks/tasks.mocks";
+import { useToDoStore } from "@/stores/todo.store";
 
 export const CheckboxInTable = () => {
-  const [todos, setTodos] = useState(tableData);
+  const todos = useToDoStore((state) => state.todos);
+  const setTodos = useToDoStore((state) => state.setTodos);
+  const addToDo = useToDoStore((state) => state.addToDo);
+  const setIsOpen = useToDoStore((state) => state.setIsEditDialogOpen);
 
   const toggleToDo = (id: number | string) => {
     const updatedTodos = todos.map((item) => {
@@ -42,7 +44,11 @@ export const CheckboxInTable = () => {
             />
           ))}
         </div>
-        <Button className="mt-4 place-self-end" size="sm">
+        <Button
+          className="mt-4 place-self-end"
+          size="sm"
+          onClick={() => setIsOpen(true)}
+        >
           <Plus className="h-4 w-4" />
           Add Task
         </Button>

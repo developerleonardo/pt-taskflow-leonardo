@@ -30,7 +30,7 @@ export const CheckboxInTable = () => {
   const pendingTasks = filteredTodos.filter((item) => item.completed === false);
   return (
     <>
-      <section className="flex flex-col h-1/2 min-h-0">
+      <section className="flex flex-col h-1/2 min-h-0 overflow-y-auto">
         <h2 className=" bg-red-100 rounded-lg px-2 py-1 mb-4 text-lg font-medium">
           To Do
         </h2>
@@ -39,7 +39,7 @@ export const CheckboxInTable = () => {
             <span className="text-sm text-muted-foreground">Description</span>
             <span className="text-sm text-muted-foreground">User ID</span>
           </div>
-          <div className="flex flex-col gap-2 flex-1 max-h-63 overflow-y-auto">
+          <div className="flex flex-col gap-2 flex-1 max-h-63">
             {pendingTasks.map((item) => (
               <ToDoItem
                 key={item.id}
@@ -61,7 +61,7 @@ export const CheckboxInTable = () => {
           Add Task
         </Button>
       </section>
-      <section className="flex flex-col h-1/2 min-h-0">
+      <section className="flex flex-col h-1/2 min-h-0 overflow-y-auto">
         <h2 className="bg-green-100 rounded-lg px-2 py-1 mb-4 text-lg font-medium">
           Completed
         </h2>
@@ -70,7 +70,7 @@ export const CheckboxInTable = () => {
             <span className="text-sm text-muted-foreground">Description</span>
             <span className="text-sm text-muted-foreground">User ID</span>
           </div>
-          <div className="flex flex-col gap-2 flex-1 max-h-63 overflow-y-auto">
+          <div className="flex flex-col gap-2 flex-1 max-h-63">
             {completedTasks.map((item) => (
               <ToDoItem
                 key={item.id}

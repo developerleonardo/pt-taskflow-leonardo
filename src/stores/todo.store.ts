@@ -7,7 +7,7 @@ interface TodoStore {
   error: string | null;
   searchToDo: string;
   isEditDialogOpen: boolean;
-
+  localIds: Set<number>;
   setTodos: (todos: ToDoTypes[]) => void;
   addTodoLocal: (todo: ToDoTypes) => void;
   updateTodoLocal: (id: number, completed: boolean) => void;
@@ -26,12 +26,14 @@ export const useToDoStore = create<TodoStore>((set) => ({
   error: null,
   searchToDo: "",
   isEditDialogOpen: false,
+  localIds: new Set<number>(),
 
   setTodos: (todos) => set({ todos }),
 
   addTodoLocal: (todo) =>
     set((state) => ({
       todos: [todo, ...state.todos],
+      localIds: new Set([...state.localIds, todo.id]),
     })),
 
   updateTodoLocal: (id, completed) =>
@@ -42,9 +44,14 @@ export const useToDoStore = create<TodoStore>((set) => ({
     })),
 
   deleteTodoLocal: (id) =>
-    set((state) => ({
-      todos: state.todos.filter((todo) => todo.id !== id),
-    })),
+    set((state) => {
+      const localIds = new Set(state.localIds);
+      localIds.delete(id);
+      return {
+        todos: state.todos.filter((todo) => todo.id !== id),
+        localIds,
+      };
+    }),
 
   setLoading: (loading) => set({ loading }),
   setError: (error) => set({ error }),

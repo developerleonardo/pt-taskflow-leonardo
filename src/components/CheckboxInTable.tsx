@@ -7,7 +7,6 @@ import { useToDoStore } from "@/stores/todo.store";
 export const CheckboxInTable = () => {
   const todos = useToDoStore((state) => state.todos);
   const setTodos = useToDoStore((state) => state.setTodos);
-  const addToDo = useToDoStore((state) => state.addToDo);
   const setIsOpen = useToDoStore((state) => state.setIsEditDialogOpen);
 
   const toggleToDo = (id: number | string) => {

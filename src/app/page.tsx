@@ -11,10 +11,10 @@ export default function Home() {
       <main className="grid grid-cols-1 grid-rows-[1fr_auto] justify-center items-center">
         <MainLayout>
           <CheckboxInTable />
-          <AddToDoDialog />
         </MainLayout>
         <PaginationBar />
       </main>
+      <AddToDoDialog />
     </>
   );
 }

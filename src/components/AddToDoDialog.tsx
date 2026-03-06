@@ -1,51 +1,54 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { useToDoStore } from "@/stores/todo.store";
+import { useTodos } from "@/hooks/useTodos";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useToDoStore } from "@/stores/todo.store";
-import { useState } from "react";
+  DialogDescription,
+  DialogFooter,
+  DialogClose,
+} from "./ui/dialog";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import { toast } from "sonner";
 
 export const AddToDoDialog = () => {
   const isEditDialogOpen = useToDoStore((state) => state.isEditDialogOpen);
   const setIsEditDialogOpen = useToDoStore(
     (state) => state.setIsEditDialogOpen,
   );
-  const addTodoLocal = useToDoStore((state) => state.addTodoLocal);
+  const { addTodo } = useTodos();
 
-  const [inputValue, setInputValue] = useState<string>("");
+  const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState<string | null>(null);
-
-  if (inputValue.length > 30) {
-    setError("Description must be less than 30 characters");
-    return;
-  }
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
-    setError(null);
+    if (error) setError(null);
   };
 
-  const createToDo = (description: string) => {
-    if (!description.trim()) return;
-    const newToDo = {
-      id: Date.now() + Math.floor(Math.random() * 1000),
-      todo: description,
-      completed: false,
-      userid: Date.now(),
-    };
-    addTodoLocal(newToDo);
-    setInputValue("");
-    setIsEditDialogOpen(false);
+  const handleSave = async () => {
+    if (!inputValue.trim()) {
+      setError("Description is required");
+      return;
+    }
+    setIsSubmitting(true);
+    const result = await addTodo(inputValue.trim());
+    setIsSubmitting(false);
+
+    if (result.success) {
+      toast.success("To-Do added successfully");
+      setInputValue("");
+      setIsEditDialogOpen(false);
+    } else {
+      toast.error(result.message ?? "Failed to add To-Do");
+    }
   };
 
   return (
@@ -75,9 +78,12 @@ export const AddToDoDialog = () => {
           </div>
         </div>
         <DialogFooter className="sm:justify-start">
+          <Button onClick={handleSave} disabled={isSubmitting}>
+            {isSubmitting ? "Saving..." : "Save"}
+          </Button>
           <DialogClose asChild>
-            <Button type="button" onClick={() => createToDo(inputValue)}>
-              Save
+            <Button type="button" variant="outline">
+              Cancel
             </Button>
           </DialogClose>
         </DialogFooter>

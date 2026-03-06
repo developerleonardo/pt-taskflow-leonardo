@@ -30,8 +30,8 @@ export const CheckboxInTable = () => {
   const pendingTasks = filteredTodos.filter((item) => item.completed === false);
   return (
     <>
-      <section className="flex flex-col h-1/2">
-        <h2 className="self-start bg-red-100 rounded-lg px-2 py-1 mb-4 text-lg font-medium">
+      <section className="flex flex-col h-1/2 min-h-0">
+        <h2 className=" bg-red-100 rounded-lg px-2 py-1 mb-4 text-lg font-medium">
           To Do
         </h2>
         <div className="flex flex-col gap-2">
@@ -61,8 +61,8 @@ export const CheckboxInTable = () => {
           Add Task
         </Button>
       </section>
-      <section className="flex flex-col h-1/2 max-h-1/2">
-        <h2 className="inline-block bg-green-100 rounded-lg px-2 py-1 mb-4 text-lg font-medium">
+      <section className="flex flex-col h-1/2 min-h-0">
+        <h2 className="bg-green-100 rounded-lg px-2 py-1 mb-4 text-lg font-medium">
           Completed
         </h2>
         <div className="flex flex-col gap-2">

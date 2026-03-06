@@ -8,10 +8,14 @@ interface TodoStore {
   searchToDo: string;
   isEditDialogOpen: boolean;
   localIds: Set<number>;
+  currentPage: number;
+  total: number;
   setTodos: (todos: ToDoTypes[]) => void;
   addTodoLocal: (todo: ToDoTypes) => void;
   updateTodoLocal: (id: number, completed: boolean) => void;
   deleteTodoLocal: (id: number) => void;
+  setCurrentPage: (page: number) => void;
+  setTotal: (total: number) => void;
 
   setLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
@@ -27,6 +31,11 @@ export const useToDoStore = create<TodoStore>((set) => ({
   searchToDo: "",
   isEditDialogOpen: false,
   localIds: new Set<number>(),
+  currentPage: 0,
+  total: 0,
+
+  setCurrentPage: (page) => set({ currentPage: page }),
+  setTotal: (total) => set({ total }),
 
   setTodos: (todos) => set({ todos }),
 

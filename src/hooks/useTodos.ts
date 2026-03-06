@@ -23,10 +23,11 @@ export const useTodos = () => {
     setLoading,
     error,
     setError,
+    currentPage,
+    total,
+    setCurrentPage,
+    setTotal,
   } = useToDoStore();
-
-  const [currentPage, setCurrentPage] = useState(0);
-  const [total, setTotal] = useState(0);
 
   const fetchTodos = useCallback(
     async (page: number) => {

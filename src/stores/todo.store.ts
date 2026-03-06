@@ -8,6 +8,8 @@ interface todoStore {
   deleteToDo: (id: string | number) => void;
   isEditDialogOpen: boolean;
   setIsEditDialogOpen: (isOpen: boolean) => void;
+  searchToDo: string;
+  setSearchToDo: (search: string) => void;
 }
 
 export const useToDoStore = create<todoStore>()((set) => ({
@@ -52,6 +54,11 @@ export const useToDoStore = create<todoStore>()((set) => ({
   setTodos: (todos: ToDoTypes[]) =>
     set(() => ({
       todos,
+    })),
+  searchToDo: "",
+  setSearchToDo: (search: string) =>
+    set(() => ({
+      searchToDo: search,
     })),
   addToDo: (todo: ToDoTypes) =>
     set((state) => ({

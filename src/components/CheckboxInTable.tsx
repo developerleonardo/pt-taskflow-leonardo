@@ -8,6 +8,7 @@ export const CheckboxInTable = () => {
   const todos = useToDoStore((state) => state.todos);
   const setTodos = useToDoStore((state) => state.setTodos);
   const setIsOpen = useToDoStore((state) => state.setIsEditDialogOpen);
+  const searchToDo = useToDoStore((state) => state.searchToDo);
 
   const toggleToDo = (id: number | string) => {
     const updatedTodos = todos.map((item) => {
@@ -19,8 +20,14 @@ export const CheckboxInTable = () => {
     setTodos(updatedTodos);
   };
 
-  const completedTasks = todos.filter((item) => item.completed === true);
-  const pendingTasks = todos.filter((item) => item.completed === false);
+  const filteredTodos = todos.filter((item) => {
+    return item.todo.toLowerCase().includes(searchToDo.toLowerCase());
+  });
+
+  const completedTasks = filteredTodos.filter(
+    (item) => item.completed === true,
+  );
+  const pendingTasks = filteredTodos.filter((item) => item.completed === false);
   return (
     <div className="flex flex-col gap-12">
       <section className="flex flex-col">

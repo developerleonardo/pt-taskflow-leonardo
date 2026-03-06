@@ -29,8 +29,8 @@ export const CheckboxInTable = () => {
   );
   const pendingTasks = filteredTodos.filter((item) => item.completed === false);
   return (
-    <div className="flex flex-col gap-12">
-      <section className="flex flex-col">
+    <>
+      <section className="flex flex-col h-1/2">
         <h2 className="self-start bg-red-100 rounded-lg px-2 py-1 mb-4 text-lg font-medium">
           To Do
         </h2>
@@ -39,16 +39,18 @@ export const CheckboxInTable = () => {
             <span className="text-sm text-muted-foreground">Description</span>
             <span className="text-sm text-muted-foreground">User ID</span>
           </div>
-          {pendingTasks.map((item) => (
-            <ToDoItem
-              key={item.id}
-              id={item.id}
-              todo={item.todo}
-              completed={item.completed}
-              userid={item.userid}
-              onToggle={toggleToDo}
-            />
-          ))}
+          <div className="flex flex-col gap-2 flex-1 max-h-63 overflow-y-auto">
+            {pendingTasks.map((item) => (
+              <ToDoItem
+                key={item.id}
+                id={item.id}
+                todo={item.todo}
+                completed={item.completed}
+                userid={item.userid}
+                onToggle={toggleToDo}
+              />
+            ))}
+          </div>
         </div>
         <Button
           className="mt-4 place-self-end"
@@ -59,7 +61,7 @@ export const CheckboxInTable = () => {
           Add Task
         </Button>
       </section>
-      <section>
+      <section className="flex flex-col h-1/2 max-h-1/2">
         <h2 className="inline-block bg-green-100 rounded-lg px-2 py-1 mb-4 text-lg font-medium">
           Completed
         </h2>
@@ -68,18 +70,20 @@ export const CheckboxInTable = () => {
             <span className="text-sm text-muted-foreground">Description</span>
             <span className="text-sm text-muted-foreground">User ID</span>
           </div>
-          {completedTasks.map((item) => (
-            <ToDoItem
-              key={item.id}
-              id={item.id}
-              todo={item.todo}
-              completed={item.completed}
-              userid={item.userid}
-              onToggle={toggleToDo}
-            />
-          ))}
+          <div className="flex flex-col gap-2 flex-1 max-h-63 overflow-y-auto">
+            {completedTasks.map((item) => (
+              <ToDoItem
+                key={item.id}
+                id={item.id}
+                todo={item.todo}
+                completed={item.completed}
+                userid={item.userid}
+                onToggle={toggleToDo}
+              />
+            ))}
+          </div>
         </div>
       </section>
-    </div>
+    </>
   );
 };

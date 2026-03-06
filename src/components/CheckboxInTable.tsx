@@ -1,33 +1,40 @@
 "use client";
+
 import { ToDoItem } from "@/components/ToDoItem";
 import { Button } from "./ui/button";
 import { Plus } from "lucide-react";
 import { useToDoStore } from "@/stores/todo.store";
+import { useTodos } from "@/hooks/useTodos";
+import { LoadingSkeleton } from "./LoadingSkeleton";
 
 export const CheckboxInTable = () => {
-  const todos = useToDoStore((state) => state.todos);
-  const setTodos = useToDoStore((state) => state.setTodos);
   const setIsOpen = useToDoStore((state) => state.setIsEditDialogOpen);
   const searchToDo = useToDoStore((state) => state.searchToDo);
 
-  const toggleToDo = (id: number) => {
-    const updatedTodos = todos.map((item) => {
-      if (item.id === id) {
-        return { ...item, completed: !item.completed };
-      }
-      return item;
-    });
-    setTodos(updatedTodos);
-  };
+  const { todos, toggleTodo, loading, error, fetchTodos } = useTodos();
 
-  const filteredTodos = todos.filter((item) => {
-    return item.todo.toLowerCase().includes(searchToDo.toLowerCase());
-  });
-
-  const completedTasks = filteredTodos.filter(
-    (item) => item.completed === true,
+  const filteredTodos = todos.filter((item) =>
+    item.todo.toLowerCase().includes(searchToDo.toLowerCase()),
   );
-  const pendingTasks = filteredTodos.filter((item) => item.completed === false);
+
+  const pendingTasks = filteredTodos.filter((item) => !item.completed);
+  const completedTasks = filteredTodos.filter((item) => item.completed);
+
+  if (loading) {
+    return <LoadingSkeleton />;
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center gap-2 py-8">
+        <p className="text-sm text-red-500">{error}</p>
+        <Button variant="outline" size="sm" onClick={() => fetchTodos(0)}>
+          Retry
+        </Button>
+      </div>
+    );
+  }
+
   return (
     <>
       <section className="flex flex-col h-1/2 min-h-0">
@@ -47,12 +54,11 @@ export const CheckboxInTable = () => {
                 todo={item.todo}
                 completed={item.completed}
                 userid={item.userid}
-                onToggle={toggleToDo}
+                onToggle={() => toggleTodo(item.id, item.completed)}
               />
             ))}
           </div>
         </div>
-
         <Button
           className="mt-4 place-self-end"
           size="sm"
@@ -62,6 +68,7 @@ export const CheckboxInTable = () => {
           Add Task
         </Button>
       </section>
+
       <section className="flex flex-col h-1/2 min-h-0">
         <h2 className="bg-green-100 rounded-lg px-2 py-1 mb-4 text-lg font-medium">
           Completed
@@ -79,7 +86,7 @@ export const CheckboxInTable = () => {
                 todo={item.todo}
                 completed={item.completed}
                 userid={item.userid}
-                onToggle={toggleToDo}
+                onToggle={() => toggleTodo(item.id, item.completed)}
               />
             ))}
           </div>

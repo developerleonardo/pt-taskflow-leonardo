@@ -1,17 +1,19 @@
-import { Trash2 } from "lucide-react";
-import { Button } from "./ui/button";
-import { Checkbox } from "./ui/checkbox";
-import { useToDoStore } from "@/stores/todo.store";
-import { AlertDeleteTaskDialog } from "./AlertDeleteTaskDialog";
-import { useState } from "react";
+"use client";
 
-interface ToDoItemProps {
+import { useState } from "react";
+import { Checkbox } from "./ui/checkbox";
+import { Button } from "./ui/button";
+import { Trash2 } from "lucide-react";
+import { AlertDeleteTaskDialog } from "./AlertDeleteTaskDialog";
+import { useTodos } from "@/hooks/useTodos";
+
+type ToDoItemProps = {
   id: number;
   todo: string;
   completed: boolean;
   userid: number;
-  onToggle: (id: number) => void;
-}
+  onToggle: () => void;
+};
 
 export const ToDoItem = ({
   id,
@@ -20,11 +22,11 @@ export const ToDoItem = ({
   userid,
   onToggle,
 }: ToDoItemProps) => {
-  const deleteTodoLocal = useToDoStore((state) => state.deleteTodoLocal);
-  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+  const { removeTodo } = useTodos();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const onConfirm = () => {
-    deleteTodoLocal(id);
+  const onConfirm = async () => {
+    await removeTodo(id);
     setIsDialogOpen(false);
   };
 
@@ -32,7 +34,7 @@ export const ToDoItem = ({
     <>
       <div className="flex items-center justify-between px-2 py-1 bg-white rounded-md">
         <div className="flex gap-4 justify-center items-center">
-          <Checkbox checked={completed} onCheckedChange={() => onToggle(id)} />
+          <Checkbox checked={completed} onCheckedChange={onToggle} />
           <span className="text-sm">{todo}</span>
         </div>
         <div className="flex gap-5 justify-center items-center">

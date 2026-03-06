@@ -1,5 +1,4 @@
 "use client";
-
 import {
   InputGroup,
   InputGroupAddon,
@@ -8,7 +7,11 @@ import {
 import { useToDoStore } from "@/stores/todo.store";
 import { Search } from "lucide-react";
 
-export const Searchbar = () => {
+type SearchbarProps = {
+  autoFocus?: boolean;
+};
+
+export const Searchbar = ({ autoFocus }: SearchbarProps) => {
   const searchToDo = useToDoStore((state) => state.searchToDo);
   const setSearchToDo = useToDoStore((state) => state.setSearchToDo);
   const todos = useToDoStore((state) => state.todos);
@@ -20,6 +23,7 @@ export const Searchbar = () => {
   return (
     <InputGroup className="max-w-xs">
       <InputGroupInput
+        autoFocus={autoFocus}
         placeholder="Search..."
         className="placeholder:text-neutral-300 text-neutral-50"
         onChange={(e) => setSearchToDo(e.target.value)}

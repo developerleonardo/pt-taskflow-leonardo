@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main className="flex flex-col">
+      <main className="flex flex-col px-4 md:px-6 lg:px-8">
         <MainLayout>
           <TodoInitializer />
           <CheckboxInTable />

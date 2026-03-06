@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 
 export const Header = () => {
   return (
-    <header className="w-full h-16 bg-neutral-900 grid grid-cols-[auto_1fr_auto] items-center px-4 justify-center">
+    <header className="w-full h-16 bg-neutral-900 grid grid-cols-[auto_1fr_auto] items-center px-4 justify-center sticky top-0 z-10">
       <span className="text-xl font-bold text-neutral-50">TaskFlow</span>
       <div className="flex justify-center">
         <Searchbar />

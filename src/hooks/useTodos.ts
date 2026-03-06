@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useCallback } from "react";
 import { useToDoStore } from "@/stores/todo.store";
 import {
   getTodos,
@@ -27,6 +27,7 @@ export const useTodos = () => {
     total,
     setCurrentPage,
     setTotal,
+    setHasFetched,
   } = useToDoStore();
 
   const fetchTodos = useCallback(
@@ -43,6 +44,7 @@ export const useTodos = () => {
         setError(err instanceof Error ? err.message : "Failed to fetch todos");
       } finally {
         setLoading(false);
+        setHasFetched(true);
       }
     },
     [setTodos, setLoading, setError],

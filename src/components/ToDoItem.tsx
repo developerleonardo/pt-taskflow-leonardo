@@ -6,6 +6,7 @@ import { Button } from "./ui/button";
 import { Trash2 } from "lucide-react";
 import { AlertDeleteTaskDialog } from "./AlertDeleteTaskDialog";
 import { useTodos } from "@/hooks/useTodos";
+import { toast } from "sonner";
 
 type ToDoItemProps = {
   id: number;
@@ -28,6 +29,7 @@ export const ToDoItem = ({
   const onConfirm = async () => {
     await removeTodo(id);
     setIsDialogOpen(false);
+    toast.success("To-Do deleted successfully");
   };
 
   return (

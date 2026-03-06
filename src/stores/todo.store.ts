@@ -10,6 +10,7 @@ interface TodoStore {
   localIds: Set<number>;
   currentPage: number;
   total: number;
+  hasFetched: boolean;
   setTodos: (todos: ToDoTypes[]) => void;
   addTodoLocal: (todo: ToDoTypes) => void;
   updateTodoLocal: (id: number, completed: boolean) => void;
@@ -18,6 +19,7 @@ interface TodoStore {
   setTotal: (total: number) => void;
 
   setLoading: (loading: boolean) => void;
+  setHasFetched: (hasFetched: boolean) => void;
   setError: (error: string | null) => void;
 
   setSearchToDo: (search: string) => void;
@@ -33,6 +35,7 @@ export const useToDoStore = create<TodoStore>((set) => ({
   localIds: new Set<number>(),
   currentPage: 0,
   total: 0,
+  hasFetched: false,
 
   setCurrentPage: (page) => set({ currentPage: page }),
   setTotal: (total) => set({ total }),
@@ -63,6 +66,7 @@ export const useToDoStore = create<TodoStore>((set) => ({
     }),
 
   setLoading: (loading) => set({ loading }),
+  setHasFetched: (hasFetched) => set({ hasFetched }),
   setError: (error) => set({ error }),
 
   setSearchToDo: (search) => set({ searchToDo: search }),

@@ -1,4 +1,3 @@
-// src/lib/api/todos.api.test.ts
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import {
   getTodos,
@@ -8,10 +7,11 @@ import {
 } from "@/lib/api/todos.api";
 import { itemsMocks } from "@/mocks/tasks.mocks";
 
-// Mock global fetch
+// Intercept all fetch calls globally — avoids real network requests in tests
 const mockFetch = vi.fn();
 vi.stubGlobal("fetch", mockFetch);
 
+// Helper to simulate a fetch Response with controlled data and ok status
 const mockResponse = (data: unknown, ok = true) =>
   Promise.resolve({
     ok,

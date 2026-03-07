@@ -15,6 +15,7 @@ export const CheckboxInTable = () => {
 
   const { todos, toggleTodo, loading, error, fetchTodos } = useTodos();
 
+  // Filter runs locally — no extra API calls on search
   const filteredTodos = todos.filter((item) =>
     item.todo.toLowerCase().includes(searchToDo.toLowerCase()),
   );

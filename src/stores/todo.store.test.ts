@@ -1,9 +1,8 @@
-// src/stores/todo.store.test.ts
 import { describe, it, expect, beforeEach } from "vitest";
 import { useToDoStore } from "@/stores/todo.store";
 import { itemsMocks } from "@/mocks/tasks.mocks";
 
-// Resetea el store antes de cada test para evitar estado compartido
+// Reset the store state before each test to ensure test isolation
 beforeEach(() => {
   useToDoStore.setState({
     todos: [],
@@ -35,7 +34,6 @@ describe("useToDoStore — CRUD local", () => {
   it("updateTodoLocal cambia el estado completed de la tarea correcta", () => {
     useToDoStore.getState().setTodos(itemsMocks);
 
-    // id:2 empieza en completed: false
     useToDoStore.getState().updateTodoLocal(2, true);
 
     const updated = useToDoStore.getState().todos.find((t) => t.id === 2);

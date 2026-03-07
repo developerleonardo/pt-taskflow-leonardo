@@ -14,6 +14,11 @@ import { useTodos } from "@/hooks/useTodos";
 export function PaginationBar() {
   const { currentPage, totalPages, hasPrev, hasNext, goToPage } = useTodos();
 
+  /**
+   * Returns a mixed array of page indices (0-based) and "ellipsis" markers.
+   * Always shows first and last page; collapses middle pages when totalPages > 5.
+   */
+
   const getPageNumbers = (): (number | "ellipsis")[] => {
     if (totalPages <= 5) {
       return Array.from({ length: totalPages }, (_, i) => i);

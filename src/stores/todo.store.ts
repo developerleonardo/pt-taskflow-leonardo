@@ -42,6 +42,7 @@ export const useToDoStore = create<TodoStore>((set) => ({
 
   setTodos: (todos) => set({ todos }),
 
+  // Prepends the new todo and registers its ID as local
   addTodoLocal: (todo) =>
     set((state) => ({
       todos: [todo, ...state.todos],
@@ -55,6 +56,7 @@ export const useToDoStore = create<TodoStore>((set) => ({
       ),
     })),
 
+  // Removes the todo and cleans up its localId entry if present
   deleteTodoLocal: (id) =>
     set((state) => {
       const localIds = new Set(state.localIds);

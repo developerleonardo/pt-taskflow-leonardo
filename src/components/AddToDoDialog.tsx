@@ -47,6 +47,7 @@ export const AddToDoDialog = () => {
       setInputValue("");
       setIsEditDialogOpen(false);
     } else {
+      // API errors surface here — the store also holds the error for the retry banner
       toast.error(result.message ?? "Failed to add To-Do");
     }
   };

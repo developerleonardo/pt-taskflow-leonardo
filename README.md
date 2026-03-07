@@ -1,6 +1,15 @@
-# TaskFlow
+<div align="center">
+
+# 🌐 Welcome to TaskFlow
 
 TaskFlow is a modern To-Do manager built with Next.js, TypeScript, Zustand, Tailwind CSS v4, and shadcn/ui components.
+
+[Figma Design
+](https://www.figma.com/design/GXPvIIJwbPuJuF6frNGX5W/pt-taskflow?node-id=0-1&t=w2QxBalRI4ozpVU3-1)
+
+</div>
+
+![image](https://i.imgur.com/riqGrYn.png)
 
 It focuses on a smooth UX with:
 
@@ -21,6 +30,7 @@ It focuses on a smooth UX with:
 - Language: TypeScript
 - UI: Tailwind CSS v4 + shadcn/ui + Lucide icons
 - State management: Zustand
+- Testing: Vitest + Testing Library + jsdom
 - Notifications: Sonner
 - API: `https://dummyjson.com`
 
@@ -63,6 +73,26 @@ Open `http://localhost:3000`.
 - `pnpm build`: production build
 - `pnpm start`: run production server
 - `pnpm lint`: run ESLint
+- `pnpm test`: run tests in watch mode with Vitest
+- `pnpm test:run`: run tests once (CI-friendly)
+
+## Testing
+
+This project uses `Vitest` as the test runner, with Testing Library for component behavior and `jsdom` for a browser-like test environment.
+
+- Run tests in watch mode:
+
+```bash
+pnpm test
+```
+
+- Run tests once:
+
+```bash
+pnpm test:run
+```
+
+Current test coverage focuses on store and API behavior under `src/stores` and `src/lib/api`.
 
 ## Project Structure
 

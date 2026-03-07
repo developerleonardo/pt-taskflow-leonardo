@@ -1,4 +1,4 @@
-export const tableData = [
+export const itemsMocks = [
   {
     id: 1,
     todo: "Prototype app",
